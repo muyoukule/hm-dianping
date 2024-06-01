@@ -57,6 +57,12 @@ public class ShopServiceImpl extends ServiceImpl<ShopMapper, Shop> implements IS
         return Result.ok(shop);
     }
 
+    /**
+     * 缓存穿透
+     *
+     * @param id
+     * @return
+     */
     public Shop queryWithPassThrough(Long id) {
         String key = RedisConstants.CACHE_SHOP_KEY + id;
         // 1.从redis查询商铺缓存
@@ -87,7 +93,7 @@ public class ShopServiceImpl extends ServiceImpl<ShopMapper, Shop> implements IS
     }
 
     /**
-     * 缓存穿透
+     * 互斥锁
      *
      * @param id
      * @return
@@ -148,7 +154,7 @@ public class ShopServiceImpl extends ServiceImpl<ShopMapper, Shop> implements IS
     }
 
     /**
-     * 互斥锁
+     * 重建缓存
      *
      * @param id
      * @param expireSeconds
