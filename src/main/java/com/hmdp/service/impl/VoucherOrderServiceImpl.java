@@ -65,6 +65,8 @@ public class VoucherOrderServiceImpl extends ServiceImpl<VoucherOrderMapper, Vou
     private class VoucherOrderHandler implements Runnable {
         @Override
         public void run() {
+            // 这里需要手动创建一个 Stream 类型的消息队列
+            // XGROUP CREATE stream.orders g1 0 MKSTREAM
             while (true) {
                 try {
                     // 1.获取消息队列中的订单信息 XREADGROUP GROUP g1 c1 COUNT 1 BLOCK 2000 STREAMS s1 >
